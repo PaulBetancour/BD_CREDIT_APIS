@@ -1,0 +1,8 @@
+pandas
+openpyxl
+flask
+fastapi
+uvicorn
+pydantic
+pydantic-settings
+email-validator
