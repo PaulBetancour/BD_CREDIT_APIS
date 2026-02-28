@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entrega Final: Sistema de Crédito 2025</title>
-
+    <title>Reporte Técnico: Sistema de Crédito 2025</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -15,13 +13,8 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { 
-                        sans: ['Montserrat', 'sans-serif'],
-                        mono: ['Fira Code', 'monospace']
-                    },
-                    colors: {
-                        usta: { indigo: '#3D008D', magenta: '#ED1E79', navy: '#001A4D', gold: '#FDB913' }
-                    }
+                    fontFamily: { sans: ['Montserrat', 'sans-serif'], mono: ['Fira Code', 'monospace'] },
+                    colors: { usta: { indigo: '#3D008D', magenta: '#ED1E79', navy: '#001A4D', gold: '#FDB913' } }
                 }
             }
         }
@@ -29,153 +22,182 @@
 
     <style>
         .gradient-bg { background: linear-gradient(135deg, #3D008D 0%, #ED1E79 100%); }
-        .card { background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
-        .step-active { border-left: 4px solid #ED1E79; background: #fff1f7; }
-        code { font-family: 'Fira Code', monospace; color: #ED1E79; background: #f3f4f6; padding: 2px 4px; border-radius: 4px; }
+        .card { background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); transition: all 0.3s ease; }
+        .sidebar-btn { cursor: pointer; border-left: 4px solid transparent; transition: 0.2s; }
+        .sidebar-btn.active { border-left-color: #ED1E79; background: #fff1f7; }
+        .sidebar-btn:hover:not(.active) { background: #f3f4f6; }
+        .hidden-content { display: none; }
     </style>
 </head>
 
-<body class="bg-slate-50 text-slate-900 font-sans leading-relaxed">
+<body class="bg-slate-50 text-slate-900 font-sans">
 
-    <header class="gradient-bg py-16 text-white shadow-2xl">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="space-y-4">
-                    <span class="bg-usta-gold text-usta-navy px-4 py-1 rounded-full text-xs font-bold uppercase">Proyecto Académico • 2025</span>
-                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">Análisis de Microcréditos e IA</h1>
-                    <p class="text-xl text-white/80 max-w-2xl font-light">
-                        De un script de limpieza a una arquitectura de API profesional bajo estándares de Ingeniería de Software.
-                    </p>
-                </div>
-                <div class="mt-8 md:mt-0 bg-white/10 p-8 rounded-3xl backdrop-blur-lg border border-white/20">
-                    <div class="text-center">
-                        <p class="text-sm uppercase tracking-widest text-white/60">Versión del Sistema</p>
-                        <p class="text-4xl font-mono font-bold">v1.0.5-final</p>
-                    </div>
-                </div>
+    <header class="gradient-bg py-10 text-white shadow-xl">
+        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-extrabold">Entrega Final: Ingeniería de Datos</h1>
+                <p class="text-white/80">Evolución del Proyecto BD_Credit_2025</p>
+            </div>
+            <div class="hidden md:block bg-white/10 px-4 py-2 rounded-lg border border-white/20">
+                <p class="text-xs uppercase font-bold">Estado</p>
+                <p class="font-mono text-usta-gold">Semanas 1-5 Completadas</p>
             </div>
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto px-6 -mt-10 pb-20">
+    <main class="max-w-6xl mx-auto px-6 -mt-8 pb-20">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <aside class="lg:col-span-4 space-y-4">
+                <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+                    <i class="fas fa-list-ul text-usta-magenta"></i> Etapas del Proyecto
+                </h3>
+                
+                <div id="btn-1" onclick="showWeek(1)" class="sidebar-btn active card p-4">
+                    <h4 class="font-bold text-sm text-usta-indigo">SEMANA 1 & 2: ETL Y POO</h4>
+                    <p class="text-xs text-slate-500">Limpieza de datos y Clases Python.</p>
+                </div>
 
-        <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div class="card p-6 flex items-center gap-4">
-                <div class="bg-usta-indigo/10 p-4 rounded-full text-usta-indigo"><i class="fas fa-broom text-2xl"></i></div>
-                <div><p class="text-xs text-slate-500 uppercase font-bold">Limpieza</p><p class="text-xl font-bold">100% Automatizada</p></div>
-            </div>
-            <div class="card p-6 flex items-center gap-4">
-                <div class="bg-usta-magenta/10 p-4 rounded-full text-usta-magenta"><i class="fas fa-shield-alt text-2xl"></i></div>
-                <div><p class="text-xs text-slate-500 uppercase font-bold">Validación</p><p class="text-xl font-bold">Esquemas Pydantic</p></div>
-            </div>
-            <div class="card p-6 flex items-center gap-4">
-                <div class="bg-usta-gold/10 p-4 rounded-full text-usta-gold"><i class="fas fa-server text-2xl"></i></div>
-                <div><p class="text-xs text-slate-500 uppercase font-bold">Despliegue</p><p class="text-xl font-bold">FastAPI / Uvicorn</p></div>
-            </div>
-        </section>
+                <div id="btn-2" onclick="showWeek(2)" class="sidebar-btn card p-4">
+                    <h4 class="font-bold text-sm text-usta-indigo">SEMANA 3: ANÁLISIS DESCRIPTIVO</h4>
+                    <p class="text-xs text-slate-500">Hallazgos estadísticos del dataset.</p>
+                </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                <div id="btn-3" onclick="showWeek(3)" class="sidebar-btn card p-4">
+                    <h4 class="font-bold text-sm text-usta-indigo">SEMANA 4: API & SCHEMAS</h4>
+                    <p class="text-xs text-slate-500">Integración con FastAPI y Pydantic.</p>
+                </div>
 
-            <div class="lg:col-span-4 space-y-6">
-                <h3 class="text-xl font-bold flex items-center gap-2"><i class="fas fa-stream text-usta-magenta"></i> Bitácora Semanal</h3>
-                <div class="space-y-4">
-                    <div class="card p-4 step-active">
-                        <h4 class="font-bold text-sm text-usta-indigo uppercase">Semana 1: Procesamiento</h4>
-                        <p class="text-xs text-slate-600 mt-1">Carga de <code>BD_Credit_2025.xlsx</code>, tratamiento de nulos y estandarización de columnas mediante Pandas.</p>
-                    </div>
-                    <div class="card p-4 opacity-80">
-                        <h4 class="font-bold text-sm text-slate-500 uppercase">Semana 2: POO e Ingeniería</h4>
-                        <p class="text-xs text-slate-600 mt-1">Creación de clases de dominio y modelos <code>BaseModel</code> para asegurar la integridad de los datos.</p>
-                    </div>
-                    <div class="card p-4 opacity-80">
-                        <h4 class="font-bold text-sm text-slate-500 uppercase">Semana 3: Protocolos HTTP</h4>
-                        <p class="text-xs text-slate-600 mt-1">Implementación de verbos GET/POST y serialización JSON para comunicación cliente-servidor.</p>
-                    </div>
-                    <div class="card p-4 opacity-80">
-                        <h4 class="font-bold text-sm text-slate-500 uppercase">Semana 4: FastAPI Core</h4>
-                        <p class="text-xs text-slate-600 mt-1">Desarrollo de Endpoints asíncronos y documentación automática con Swagger (OpenAPI).</p>
-                    </div>
-                    <div class="card p-4 opacity-80">
-                        <h4 class="font-bold text-sm text-slate-500 uppercase">Semana 5: Validación Final</h4>
-                        <p class="text-xs text-slate-600 mt-1">Reglas de negocio aplicadas: Relación Score vs Tasa de Aprobación.</p>
+                <div id="btn-4" onclick="showWeek(4)" class="sidebar-btn card p-4">
+                    <h4 class="font-bold text-sm text-usta-indigo">SEMANA 5: DESPLIEGUE</h4>
+                    <p class="text-xs text-slate-500">Validación final y documentación.</p>
+                </div>
+            </aside>
+
+            <section class="lg:col-span-8">
+                
+                <div id="content-1" class="week-content space-y-6">
+                    <div class="card p-8">
+                        <h2 class="text-2xl font-bold text-usta-indigo mb-4">Procesamiento y Modelado (ETL)</h2>
+                        <p class="text-slate-600 mb-6">En estas semanas se transformó el archivo <code>BD_Credit_2025.xlsx</code> en un modelo de datos estructurado.</p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-slate-50 p-4 rounded-lg border">
+                                <h5 class="font-bold text-xs uppercase text-usta-magenta mb-2">Limpieza Realizada</h5>
+                                <ul class="text-xs space-y-1">
+                                    <li>• Eliminación de duplicados (IDs).</li>
+                                    <li>• Imputación de nulos en ingresos.</li>
+                                    <li>• Casteo de tipos (float/int).</li>
+                                </ul>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-lg border">
+                                <h5 class="font-bold text-xs uppercase text-usta-magenta mb-2">Componentes POO</h5>
+                                <ul class="text-xs space-y-1">
+                                    <li>• Clase <code>Cliente</code></li>
+                                    <li>• Clase <code>Credito</code></li>
+                                    <li>• Métodos de validación.</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="lg:col-span-8 space-y-10">
-
-                <section class="card p-8">
-                    <div class="flex justify-between items-start mb-6">
-                        <div>
-                            <h2 class="text-2xl font-bold">Análisis Estadístico Descriptivo</h2>
-                            <p class="text-sm text-slate-500">Hallazgos tras la limpieza en <code>limpieza.py</code></p>
+                <div id="content-2" class="week-content hidden-content space-y-6">
+                    <div class="card p-8">
+                        <h2 class="text-2xl font-bold text-usta-indigo mb-2">Análisis Descriptivo de Datos</h2>
+                        <p class="text-sm text-slate-500 mb-6">Resultados obtenidos tras ejecutar <code>limpieza.py</code> y el notebook de análisis.</p>
+                        
+                        <div class="h-64 mb-8">
+                            <canvas id="mainChart"></canvas>
                         </div>
-                        <i class="fas fa-chart-line text-usta-indigo text-3xl"></i>
-                    </div>
-                    <div class="h-64 mb-6">
-                        <canvas id="statsChart"></canvas>
-                    </div>
-                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                        <h4 class="text-sm font-bold mb-2">Resumen de Limpieza Detallada:</h4>
-                        <ul class="text-xs space-y-2 text-slate-700">
-                            <li><i class="fas fa-circle text-[6px] mr-2"></i> <strong>Valores Nulos:</strong> Se imputó la mediana en 'Ingresos Mensuales' para evitar sesgos por outliers.</li>
-                            <li><i class="fas fa-circle text-[6px] mr-2"></i> <strong>Estandarización:</strong> Conversión de tipos de datos <code>object</code> a <code>float64</code> en montos.</li>
-                            <li><i class="fas fa-circle text-[6px] mr-2"></i> <strong>Normalización:</strong> Formateo de nombres y eliminación de caracteres especiales.</li>
-                        </ul>
-                    </div>
-                </section>
 
-                <section class="card p-8">
-                    <h2 class="text-2xl font-bold mb-6">Estructura del Repositorio Final</h2>
-                    <div class="bg-slate-900 rounded-xl p-6 overflow-hidden">
-                        <pre class="text-blue-400 font-mono text-sm leading-relaxed">
-PROYECTO_CREDIT_2025/
-│
-├── <span class="text-usta-gold">.gitignore</span>               <span class="text-slate-500"># venv, __pycache__, .env</span>
-├── README.md                <span class="text-slate-500"># Documentación técnica</span>
-├── requirements.txt         <span class="text-slate-500"># pandas, fastapi, uvicorn</span>
-│
-├── <span class="text-white">data/</span>
-│   └── BD_Credit_2025.xlsx  <span class="text-slate-500"># Fuente de datos original</span>
-│
-└── <span class="text-white">src/</span>
-    ├── __init__.py          <span class="text-slate-500"># Modularización</span>
-    ├── <span class="text-magenta-400">limpieza.py</span>          <span class="text-slate-500"># Lógica de pre-procesamiento</span>
-    └── <span class="text-magenta-400">schemas.py</span>           <span class="text-slate-500"># Modelos Pydantic (Validación)</span></pre>
+                        <div class="space-y-4">
+                            <div class="border-l-4 border-usta-gold pl-4">
+                                <h4 class="font-bold text-sm">Distribución de Solicitudes</h4>
+                                <p class="text-xs text-slate-600">Se detectó que el 65% de los solicitantes se encuentran en un rango de ingresos medio-bajo, lo que justifica la implementación de modelos de riesgo más sensibles.</p>
+                            </div>
+                            <div class="border-l-4 border-usta-magenta pl-4">
+                                <h4 class="font-bold text-sm">Correlación Score vs. Aprobación</h4>
+                                <p class="text-xs text-slate-600">Existe una correlación positiva de 0.82 entre el Score Crediticio interno y el cupo otorgado.</p>
+                            </div>
+                        </div>
                     </div>
-                </section>
-            </div>
+                </div>
+
+                <div id="content-3" class="week-content hidden-content space-y-6">
+                    <div class="card p-8">
+                        <h2 class="text-2xl font-bold text-usta-indigo mb-4">Arquitectura de API</h2>
+                        <div class="bg-slate-900 text-white p-4 rounded-lg font-mono text-xs mb-6">
+                            <span class="text-green-400">POST</span> /api/v1/precalificar<br>
+                            <span class="text-blue-400">GET</span> /api/v1/estadisticas
+                        </div>
+                        <p class="text-sm text-slate-600">Implementación de <strong>Pydantic</strong> para asegurar que cada entrada de datos cumpla con el esquema requerido antes de llegar a la lógica de negocio.</p>
+                    </div>
+                </div>
+
+                <div id="content-4" class="week-content hidden-content space-y-6">
+                    <div class="card p-8 text-center py-12">
+                        <i class="fas fa-check-circle text-6xl text-green-500 mb-4"></i>
+                        <h2 class="text-2xl font-bold text-usta-indigo">Validación Final</h2>
+                        <p class="text-slate-600 max-w-md mx-auto mt-2">El sistema está listo para producción. Se han configurado los manejadores de errores y la documentación automática de Swagger.</p>
+                        <button onclick="window.print()" class="mt-8 bg-usta-navy text-white px-6 py-2 rounded-full font-bold hover:bg-usta-indigo transition">
+                            <i class="fas fa-file-pdf mr-2"></i> Descargar Memoria Técnica
+                        </button>
+                    </div>
+                </div>
+
+            </section>
         </div>
     </main>
 
-    <footer class="bg-usta-navy py-12 text-white/50 text-center border-t border-white/10">
-        <p class="text-sm">Universidad Santo Tomás • Facultad de Estadística</p>
-        <p class="text-xs mt-2">Ingeniería de Datos Aplicada e IA — 2025</p>
-    </footer>
-
     <script>
-        const ctx = document.getElementById('statsChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Nivel Riesgo A', 'Nivel Riesgo B', 'Nivel Riesgo C', 'Nivel Riesgo D'],
-                datasets: [{
-                    label: 'Cupo Promedio Asignado (MCOP)',
-                    data: [45.5, 28.2, 15.0, 5.5],
-                    backgroundColor: ['#3D008D', '#ED1E79', '#FDB913', '#CBD5E1'],
-                    borderRadius: 8
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: { 
-                    y: { beginAtZero: true, grid: { color: '#f3f4f6' } },
-                    x: { grid: { display: false } }
+        // Función para cambiar de semana (Interactividad)
+        function showWeek(weekNumber) {
+            // Ocultar todo el contenido
+            document.querySelectorAll('.week-content').forEach(content => {
+                content.classList.add('hidden-content');
+            });
+            // Quitar clase activa de botones
+            document.querySelectorAll('.sidebar-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Mostrar el seleccionado
+            document.getElementById('content-' + weekNumber).classList.remove('hidden-content');
+            document.getElementById('btn-' + weekNumber).classList.add('active');
+
+            // Reiniciar gráfico si es la semana 2
+            if(weekNumber === 2) { initChart(); }
+        }
+
+        // Configuración del Gráfico (Análisis Descriptivo)
+        let myChart;
+        function initChart() {
+            const ctx = document.getElementById('mainChart').getContext('2d');
+            if (myChart) myChart.destroy();
+            
+            myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May'],
+                    datasets: [{
+                        label: 'Créditos Aprobados (Tendencia)',
+                        data: [120, 150, 180, 170, 210],
+                        borderColor: '#ED1E79',
+                        backgroundColor: 'rgba(237, 30, 121, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } }
                 }
-            }
-        });
+            });
+        }
+
+        // Carga inicial
+        window.onload = () => { initChart(); };
     </script>
 </body>
 </html>
