@@ -1,0 +1,23 @@
+# Entornos virtuales (No queremos subir gigas de librerías instaladas)
+venv/
+env/
+.venv/
+ENV/
+
+# Archivos temporales de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Variables de entorno (Seguridad: aquí irían tus API keys en el futuro)
+.env
+
+# Archivos temporales de Jupyter Notebooks
+.ipynb_checkpoints
+
+# Archivos de sistema (Mac y Windows)
+.DS_Store
+Thumbs.db
+
+# Excel temporales (cuando tienes el archivo abierto)
+~$*.xlsx
