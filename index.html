@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrega Final: Sistema de Crédito 2025</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { 
+                        sans: ['Montserrat', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    },
+                    colors: {
+                        usta: { indigo: '#3D008D', magenta: '#ED1E79', navy: '#001A4D', gold: '#FDB913' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #3D008D 0%, #ED1E79 100%); }
+        .card { background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
+        .step-active { border-left: 4px solid #ED1E79; background: #fff1f7; }
+        code { font-family: 'Fira Code', monospace; color: #ED1E79; background: #f3f4f6; padding: 2px 4px; border-radius: 4px; }
+    </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900 font-sans leading-relaxed">
+
+    <header class="gradient-bg py-16 text-white shadow-2xl">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="space-y-4">
+                    <span class="bg-usta-gold text-usta-navy px-4 py-1 rounded-full text-xs font-bold uppercase">Proyecto Académico • 2025</span>
+                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">Análisis de Microcréditos e IA</h1>
+                    <p class="text-xl text-white/80 max-w-2xl font-light">
+                        De un script de limpieza a una arquitectura de API profesional bajo estándares de Ingeniería de Software.
+                    </p>
+                </div>
+                <div class="mt-8 md:mt-0 bg-white/10 p-8 rounded-3xl backdrop-blur-lg border border-white/20">
+                    <div class="text-center">
+                        <p class="text-sm uppercase tracking-widest text-white/60">Versión del Sistema</p>
+                        <p class="text-4xl font-mono font-bold">v1.0.5-final</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 -mt-10 pb-20">
+
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div class="card p-6 flex items-center gap-4">
+                <div class="bg-usta-indigo/10 p-4 rounded-full text-usta-indigo"><i class="fas fa-broom text-2xl"></i></div>
+                <div><p class="text-xs text-slate-500 uppercase font-bold">Limpieza</p><p class="text-xl font-bold">100% Automatizada</p></div>
+            </div>
+            <div class="card p-6 flex items-center gap-4">
+                <div class="bg-usta-magenta/10 p-4 rounded-full text-usta-magenta"><i class="fas fa-shield-alt text-2xl"></i></div>
+                <div><p class="text-xs text-slate-500 uppercase font-bold">Validación</p><p class="text-xl font-bold">Esquemas Pydantic</p></div>
+            </div>
+            <div class="card p-6 flex items-center gap-4">
+                <div class="bg-usta-gold/10 p-4 rounded-full text-usta-gold"><i class="fas fa-server text-2xl"></i></div>
+                <div><p class="text-xs text-slate-500 uppercase font-bold">Despliegue</p><p class="text-xl font-bold">FastAPI / Uvicorn</p></div>
+            </div>
+        </section>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+
+            <div class="lg:col-span-4 space-y-6">
+                <h3 class="text-xl font-bold flex items-center gap-2"><i class="fas fa-stream text-usta-magenta"></i> Bitácora Semanal</h3>
+                <div class="space-y-4">
+                    <div class="card p-4 step-active">
+                        <h4 class="font-bold text-sm text-usta-indigo uppercase">Semana 1: Procesamiento</h4>
+                        <p class="text-xs text-slate-600 mt-1">Carga de <code>BD_Credit_2025.xlsx</code>, tratamiento de nulos y estandarización de columnas mediante Pandas.</p>
+                    </div>
+                    <div class="card p-4 opacity-80">
+                        <h4 class="font-bold text-sm text-slate-500 uppercase">Semana 2: POO e Ingeniería</h4>
+                        <p class="text-xs text-slate-600 mt-1">Creación de clases de dominio y modelos <code>BaseModel</code> para asegurar la integridad de los datos.</p>
+                    </div>
+                    <div class="card p-4 opacity-80">
+                        <h4 class="font-bold text-sm text-slate-500 uppercase">Semana 3: Protocolos HTTP</h4>
+                        <p class="text-xs text-slate-600 mt-1">Implementación de verbos GET/POST y serialización JSON para comunicación cliente-servidor.</p>
+                    </div>
+                    <div class="card p-4 opacity-80">
+                        <h4 class="font-bold text-sm text-slate-500 uppercase">Semana 4: FastAPI Core</h4>
+                        <p class="text-xs text-slate-600 mt-1">Desarrollo de Endpoints asíncronos y documentación automática con Swagger (OpenAPI).</p>
+                    </div>
+                    <div class="card p-4 opacity-80">
+                        <h4 class="font-bold text-sm text-slate-500 uppercase">Semana 5: Validación Final</h4>
+                        <p class="text-xs text-slate-600 mt-1">Reglas de negocio aplicadas: Relación Score vs Tasa de Aprobación.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8 space-y-10">
+
+                <section class="card p-8">
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <h2 class="text-2xl font-bold">Análisis Estadístico Descriptivo</h2>
+                            <p class="text-sm text-slate-500">Hallazgos tras la limpieza en <code>limpieza.py</code></p>
+                        </div>
+                        <i class="fas fa-chart-line text-usta-indigo text-3xl"></i>
+                    </div>
+                    <div class="h-64 mb-6">
+                        <canvas id="statsChart"></canvas>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="text-sm font-bold mb-2">Resumen de Limpieza Detallada:</h4>
+                        <ul class="text-xs space-y-2 text-slate-700">
+                            <li><i class="fas fa-circle text-[6px] mr-2"></i> <strong>Valores Nulos:</strong> Se imputó la mediana en 'Ingresos Mensuales' para evitar sesgos por outliers.</li>
+                            <li><i class="fas fa-circle text-[6px] mr-2"></i> <strong>Estandarización:</strong> Conversión de tipos de datos <code>object</code> a <code>float64</code> en montos.</li>
+                            <li><i class="fas fa-circle text-[6px] mr-2"></i> <strong>Normalización:</strong> Formateo de nombres y eliminación de caracteres especiales.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="card p-8">
+                    <h2 class="text-2xl font-bold mb-6">Estructura del Repositorio Final</h2>
+                    <div class="bg-slate-900 rounded-xl p-6 overflow-hidden">
+                        <pre class="text-blue-400 font-mono text-sm leading-relaxed">
+PROYECTO_CREDIT_2025/
+│
+├── <span class="text-usta-gold">.gitignore</span>               <span class="text-slate-500"># venv, __pycache__, .env</span>
+├── README.md                <span class="text-slate-500"># Documentación técnica</span>
+├── requirements.txt         <span class="text-slate-500"># pandas, fastapi, uvicorn</span>
+│
+├── <span class="text-white">data/</span>
+│   └── BD_Credit_2025.xlsx  <span class="text-slate-500"># Fuente de datos original</span>
+│
+└── <span class="text-white">src/</span>
+    ├── __init__.py          <span class="text-slate-500"># Modularización</span>
+    ├── <span class="text-magenta-400">limpieza.py</span>          <span class="text-slate-500"># Lógica de pre-procesamiento</span>
+    └── <span class="text-magenta-400">schemas.py</span>           <span class="text-slate-500"># Modelos Pydantic (Validación)</span></pre>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-usta-navy py-12 text-white/50 text-center border-t border-white/10">
+        <p class="text-sm">Universidad Santo Tomás • Facultad de Estadística</p>
+        <p class="text-xs mt-2">Ingeniería de Datos Aplicada e IA — 2025</p>
+    </footer>
+
+    <script>
+        const ctx = document.getElementById('statsChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Nivel Riesgo A', 'Nivel Riesgo B', 'Nivel Riesgo C', 'Nivel Riesgo D'],
+                datasets: [{
+                    label: 'Cupo Promedio Asignado (MCOP)',
+                    data: [45.5, 28.2, 15.0, 5.5],
+                    backgroundColor: ['#3D008D', '#ED1E79', '#FDB913', '#CBD5E1'],
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { 
+                    y: { beginAtZero: true, grid: { color: '#f3f4f6' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
