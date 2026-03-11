@@ -1,0 +1,3 @@
+1. Distribución de Edad
+fig_age = px.histogram(df, x="age", nbins=20, title="Distribución de Edad",
+                       color_discrete_sequence=['#2563EB'])

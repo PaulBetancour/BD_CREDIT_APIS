@@ -1,0 +1,4 @@
+2. Ingreso vs Cupo Solicitado
+fig_scatter = px.scatter(df, x="income", y="cupo_solicitado",
+                         title="Relación Ingreso vs Cupo Solicitado",
+                         color="age", hover_data=['customer_id'])

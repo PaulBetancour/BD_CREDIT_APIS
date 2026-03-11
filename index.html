@@ -6,6 +6,7 @@
     <title>Memoria Técnica: Ingeniería de Datos 2025</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 
@@ -34,6 +35,8 @@
         .sidebar-btn.active { border-left-color: #7C3AED; background: #F5F3FF; }
         .hidden-content { display: none; }
         .impact-badge { background: #EEF2FF; color: #4338CA; padding: 2px 8px; border-radius: 6px; font-weight: 600; font-size: 0.75rem; }
+        /* Estilo para los contenedores de Plotly */
+        .plotly-graph { width: 100%; height: 400px; }
     </style>
 </head>
 
@@ -67,6 +70,13 @@
                     <p class="text-xs text-slate-500 mt-1 italic">Limpieza y Análisis Descriptivo</p>
                 </div>
 
+                <div id="btn-1-1" onclick="showWeek('1-1')" class="sidebar-btn card p-4 ml-6 border-l-2 border-slate-200 bg-slate-50/50">
+                    <div class="flex items-center text-brand-blue">
+                        <i class="fas fa-chart-line mr-2 text-xs"></i>
+                        <h4 class="font-bold text-xs uppercase tracking-tight">1.1 Dashboard Interactivo</h4>
+                    </div>
+                </div>
+
                 <div id="btn-2" onclick="showWeek(2)" class="sidebar-btn card p-5">
                     <div class="flex justify-between items-start">
                         <h4 class="font-bold text-brand-dark">Semana 2</h4>
@@ -74,7 +84,6 @@
                     </div>
                     <p class="text-xs text-slate-500 mt-1 italic">Esquemas Pydantic y Protocolos</p>
                 </div>
-
 
                 <div id="btn-4" onclick="showWeek(4)" class="sidebar-btn card p-5">
                     <div class="flex justify-between items-start">
@@ -114,7 +123,6 @@
                                 <p class="text-[10px] uppercase font-bold text-slate-500">Duplicados Finales</p>
                             </div>
                         </div>
-
                         <div class="h-64 mb-6">
                             <canvas id="chartSemana1"></canvas>
                         </div>
@@ -127,10 +135,29 @@
                         </div>
                     </div>
                 </div>
+
+                <div id="content-1-1" class="week-content hidden-content space-y-6">
+                    <div class="card p-8 border-t-4 border-brand-blue">
+                        <h2 class="text-2xl font-bold text-brand-dark mb-4">Sección 1.1: Visualización Avanzada con Plotly</h2>
+                        <p class="text-slate-600 mb-6 font-light">Gráficos dinámicos generados desde Python para explorar patrones de ingreso y riesgo.</p>
+                        
+                        <div class="space-y-8">
+                            <div class="bg-slate-50 p-4 rounded-xl">
+                                <div id="plot-age" class="plotly-graph"></div>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl">
+                                <div id="plot-scatter" class="plotly-graph"></div>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl">
+                                <div id="plot-corr" class="plotly-graph"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="content-2" class="week-content hidden-content space-y-6">
                     <div class="card p-8 border-t-4 border-violet-600">
                         <h2 class="text-2xl font-bold text-brand-dark mb-4">Semana 2: Serialización y Protocolos</h2>
-                        
                         <div class="space-y-6">
                             <div>
                                 <h4 class="font-bold text-brand-violet text-sm uppercase">¿Qué se hizo?</h4>
@@ -150,10 +177,10 @@
                         </div>
                     </div>
                 </div>
+
                 <div id="content-4" class="week-content hidden-content space-y-6">
                     <div class="card p-8 border-t-4 border-sky-600">
                         <h2 class="text-2xl font-bold text-brand-dark mb-4">Semana 4: Transición a FastAPI</h2>
-                        
                         <div class="space-y-6">
                             <div>
                                 <h4 class="font-bold text-sky-600 text-sm uppercase">¿Qué se hizo?</h4>
@@ -177,7 +204,6 @@
                 <div id="content-5" class="week-content hidden-content space-y-6">
                     <div class="card p-8 border-t-4 border-emerald-600">
                         <h2 class="text-2xl font-bold text-brand-dark mb-4">Semana 5: Validación Avanzada</h2>
-                        
                         <div class="space-y-6">
                             <div>
                                 <h4 class="font-bold text-emerald-600 text-sm uppercase">¿Qué se hizo?</h4>
@@ -190,8 +216,8 @@
                             <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-100">
                                 <h4 class="font-bold text-emerald-600 text-sm">Impacto en el Proyecto</h4>
                                 <ul class="text-xs mt-2 space-y-2">
-                                    <li><i class="fas fa-shield-virus text-emerald-500 mr-2"></i> <strong>Seguridad Lógica:</strong> Se evitan registros incoherentes (como personas de -5 años o ingresos de $0) que dañarían el modelo de IA.</li>
-                                    <li><i class="fas fa-shield-virus text-emerald-500 mr-2"></i> <strong>Calidad de Datos:</strong> El dataset resultante es 100% confiable para el entrenamiento de modelos predictivos.</li>
+                                    <li><i class="fas fa-shield-virus text-emerald-500 mr-2"></i> <strong>Seguridad Lógica:</strong> Se evitan registros incoherentes que dañarían el modelo de IA.</li>
+                                    <li><i class="fas fa-shield-virus text-emerald-500 mr-2"></i> <strong>Calidad de Datos:</strong> El dataset resultante es 100% confiable.</li>
                                 </ul>
                             </div>
                         </div>
@@ -208,12 +234,25 @@
     </footer>
 
     <script>
+        // FUNCIÓN DE NAVEGACIÓN UNIFICADA
         function showWeek(n) {
+            // Ocultar todos los contenidos
             document.querySelectorAll('.week-content').forEach(c => c.classList.add('hidden-content'));
+            
+            // Desactivar todos los botones
             document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('content-' + n).classList.remove('hidden-content');
-            document.getElementById('btn-' + n).classList.add('active');
+            
+            // Mostrar contenido actual
+            const targetContent = document.getElementById('content-' + n);
+            if(targetContent) targetContent.classList.remove('hidden-content');
+            
+            // Activar botón actual
+            const targetBtn = document.getElementById('btn-' + n);
+            if(targetBtn) targetBtn.classList.add('active');
+            
+            // Ejecutar funciones de dibujo
             if(n === 1) renderChart1();
+            if(n === '1-1') renderPlotlyDash();
         }
 
         let chart1;
@@ -231,15 +270,47 @@
                         borderRadius: 8
                     }]
                 },
-                options: { 
-                    responsive: true, 
+                options: {
+                    responsive: true,
                     maintainAspectRatio: false,
                     plugins: { legend: { display: false } }
                 }
             });
         }
 
-        window.onload = renderChart1;
+        // FUNCIÓN PARA RENDERIZAR LOS GRÁFICOS DE PLOTLY EN LA SECCIÓN 1.1
+        function renderPlotlyDash() {
+            // NOTA: Aquí es donde debes pegar los JSON generados por tu Python
+            // He puesto datos de ejemplo coherentes para que veas el diseño:
+            
+            const ageData = [{
+                x: ['18-25', '26-35', '36-45', '46-60', '60+'],
+                y: [20, 45, 30, 15, 5],
+                type: 'histogram', marker: {color: '#2563EB'}
+            }];
+            Plotly.newPlot('plot-age', ageData, {title: 'Distribución de Edad'});
+
+            const scatterData = [{
+                x: [2, 3, 4, 5, 6, 7, 8], y: [10, 15, 20, 25, 30, 35, 40],
+                mode: 'markers', type: 'scatter', marker: {color: '#7C3AED', size: 10}
+            }];
+            Plotly.newPlot('plot-scatter', scatterData, {title: 'Ingreso vs Cupo Solicitado'});
+
+            const corrData = [{
+                z: [[1, 0.3, 0.8], [0.3, 1, 0.1], [0.8, 0.1, 1]],
+                x: ['Edad', 'Ingreso', 'Cupo'], y: ['Edad', 'Ingreso', 'Cupo'],
+                type: 'heatmap', colorscale: 'RdBu'
+            }];
+            Plotly.newPlot('plot-corr', corrData, {title: 'Matriz de Correlación'});
+        }
+
+        window.onload = () => {
+            showWeek(1); // Carga la Semana 1 por defecto
+        };
     </script>
 </body>
 </html>
+
+
+
+

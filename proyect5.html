@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Analizador de Crédito 2025 - Paul Betancour</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: #f0f2f5; padding-top: 50px; }
+        .upload-card { border-radius: 20px; border: 2px dashed #3498db; background: white; padding: 30px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <div class="upload-card text-center mb-4">
+                <h3 class="mb-4">📊 Analizador Dinámico BD_Credit</h3>
+                <form id="uploadForm">
+                    <div class="mb-3 text-start">
+                        <label class="form-label">1. Selecciona tu archivo CSV</label>
+                        <input type="file" id="csvFile" class="form-control" accept=".csv" required>
+                    </div>
+                    <div class="mb-3 text-start">
+                        <label class="form-label">2. Escribe la columna a analizar (Ej: Income)</label>
+                        <input type="text" id="columnaName" class="form-control" placeholder="Escribe el nombre exacto de la columna" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Cargar y Procesar con FastAPI</button>
+                </form>
+            </div>
+
+            <div id="resultado" class="card p-4 mb-4" style="display:none; border-left: 5px solid #2ecc71;">
+                <h4>✅ Resultados para: <span id="res_var"></span></h4>
+                <div class="row mt-3">
+                    <div class="col-6"><strong>Media:</strong> <span id="res_media"></span></div>
+                    <div class="col-6"><strong>Desv. Estándar:</strong> <span id="res_desv"></span></div>
+                    <div class="col-6"><strong>Mínimo:</strong> <span id="res_min"></span></div>
+                    <div class="col-6"><strong>Máximo:</strong> <span id="res_max"></span></div>
+                </div>
+            </div>
+
+            <button onclick="cargarHistorial()" class="btn btn-outline-dark btn-sm mb-3">Consultar Historial de Análisis</button>
+            <div id="listaHistorial"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const fileInput = document.getElementById('csvFile');
+        const columnaInput = document.getElementById('columnaName').value;
+
+        if (!fileInput.files[0]) return alert("Por favor, selecciona el archivo de créditos.");
+
+        const formData = new FormData();
+        formData.append("file", fileInput.files[0]);
+        formData.append("columna", columnaInput);
+
+        try {
+            console.log("Enviando petición a FastAPI...");
+            const response = await fetch("http://127.0.0.1:8010/procesar-csv", {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (data.error) {
+                alert("⚠️ " + data.error + (data.sugerencias ? "\nColumnas disponibles: " + data.sugerencias.join(", ") : ""));
+            } else {
+                // MOSTRAR RESULTADOS
+                document.getElementById('resultado').style.display = 'block';
+                document.getElementById('res_var').innerText = data.variable;
+                document.getElementById('res_media').innerText = data.media;
+                document.getElementById('res_desv').innerText = data.desv;
+                document.getElementById('res_min').innerText = data.min;
+                document.getElementById('res_max').innerText = data.max;
+                console.log("Datos procesados correctamente");
+            }
+        } catch (error) {
+            console.error("Error detallado:", error);
+            alert("❌ Error de conexión: Asegúrate de que FastAPI esté corriendo (uvicorn main:app --port 8010)");
+        }
+    });
+
+    async function cargarHistorial() {
+        const res = await fetch(`http://127.0.0.1:8010/historial`);
+        const data = await res.json();
+        const div = document.getElementById('listaHistorial');
+        div.innerHTML = "";
+        
+        Object.entries(data).forEach(([id, item]) => {
+            div.innerHTML += `
+                <div class="alert alert-secondary d-flex justify-content-between align-items-center">
+                    <span>ID ${id}: Análisis de <b>${item.variable}</b> (Media: ${item.media})</span>
+                    <button class="btn btn-danger btn-sm" onclick="eliminar(${id})">X</button>
+                </div>`;
+        });
+    }
+
+    async function eliminar(id) {
+        alert("En esta versión robusta no está habilitado el endpoint DELETE /historial/{id}.");
+    }
+</script>
+</body>
+</html>
